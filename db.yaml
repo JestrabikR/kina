@@ -1,4 +1,4 @@
-mysql_host: 'localhost'
-mysql_user: 'root'
-mysql_password: ''
-mysql_db: 'kina'
+mysql_host: 'us-cdbr-east-03.cleardb.com '
+mysql_user: 'b78a8ffb0b2870'
+mysql_password: 'b78a8ffb0b2870'
+mysql_db: 'heroku_f92209d0307b8fb'
