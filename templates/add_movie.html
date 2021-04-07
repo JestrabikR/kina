@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Přidat film</title>
+{% endblock %}
+
+{% block body %}
+<div class="container-login">
+    <div class="login-page">
+        <h2 id="login_h2">Přidat Film</h2>
+        <form action="/addMovie" class="login-form" method="POST">
+            <div class="form-group">
+                <input type="text" placeholder="Název" name="movie_name"/>
+            </div>
+            <div class="form-group">
+                <input type="number" placeholder="Délka" name="length"/>
+            </div>
+            <div class="form-group">
+                <p>
+                    <SELECT name="type" class="form-select">
+                    {% for type in types %}
+                      <OPTION value={{type['id_typu']}}>{{type['typ_filmu']}}</OPTION>
+                    {% endfor %}
+                    </SELECT>
+                </p>
+                <!--<input type="number" placeholder="Typ filmu" name="type"/>-->
+            </div>
+            <div class="form-group">
+                <p>
+                    <SELECT name="genre" class="form-select">
+                    {% for genre in genres %}
+                      <OPTION value={{genre['id_zanru']}}>{{genre['nazev_zanru']}}</OPTION>
+                    {% endfor %}
+                    </SELECT>
+                </p>
+            </div>
+            <div class="form-group">
+                <button type="submit">Uložit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

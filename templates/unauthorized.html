@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Přístup zakázán</title>
+{% endblock %}
+
+{% block body %}
+<h1>Přístup zakázán</h1>
+<div style="text-align: center;">
+    <p>Pro pokračování je vyžadováno přihlášení</p>
+    <a href="{{url_for('index')}}">Domovská stránka</a>
+    <p>
+        <img src="../static/images/unauthorized.png">
+    </p>
+</div>
+
+{% endblock %}
