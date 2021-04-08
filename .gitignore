@@ -1,1 +1,3 @@
 *.yaml
+kino_hvezda/
+__pycache__/
