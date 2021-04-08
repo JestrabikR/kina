@@ -119,6 +119,31 @@ def addMovie():
          return redirect(url_for("filmy"))
    
       
+@app.route('/addHall', methods=["GET","POST"])
+def addHall():
+   try:
+      session['name'] != None
+   except:
+      return render_template('unauthorized.html')
+   else:
+      if request.method == 'GET':
+         cursor = mysql.connection.cursor()
+         cursor.execute('SELECT * FROM saly')
+         saly = cursor.fetchall()
+
+         return render_template('add_hall.html', saly=saly)
+      else:
+         hall_number = request.form['hall_number']
+         projection_type = request.form['projection_type']
+         sound_type = request.form['sound_type']
+         projection_id = request.form['projection_id']
+
+         cur = mysql.connection.cursor()
+         cur.execute("INSERT INTO saly (cislo_salu, typ_promitani, typ_ozvuceni, id_promitani) VALUES (%s, %s, %s, %s)",(hall_number,projection_type,sound_type,projection_id))
+         mysql.connection.commit()
+         return redirect(url_for("saly"))
+   
+      
 
 @app.route('/film')
 def film():

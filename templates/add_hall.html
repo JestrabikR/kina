@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Přidat film</title>
+{% endblock %}
+
+{% block body %}
+<div class="container-login">
+    <div class="login-page">
+        <h2 id="login_h2">Přidat Sál</h2>
+        <form action="/addHall" class="login-form" method="POST">
+            <div class="form-group">
+                <input type="number" placeholder="Číslo sálu" name="hall_number"/>
+            </div>
+            <!--Dodělat select option ANO/NE-->
+            <div class="form-group">
+                <input type="number" placeholder="Typ promítání" name="projection_type"/>
+            </div>
+            <div class="form-group">
+                <input type="number" placeholder="Typ Ozvučení" name="sound_type"/>
+            </div>
+            <div class="form-group">
+                <input type="number" placeholder="Číslo promítání" name="projection_id"/>
+            </div>
+            <div class="form-group">
+                <button type="submit">Uložit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

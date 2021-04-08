@@ -10,6 +10,9 @@
   <h1 id="main_h1" style="color: black; margin-top: 5rem;">Sály</h1>
   </div>
   <div class="container" id="main">
+    {% if session['name'] %}
+    <a href="{{url_for('addHall')}}"class="btn btn-success"><span id="plus">+</span> Přidat sál</a>
+    {% endif %}
 
     <table class="table">
       <thead class="thead-dark">

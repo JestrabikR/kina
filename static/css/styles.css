@@ -75,8 +75,11 @@ h1:not(#main_h1){
   max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;
-  text-align: center;
+  text-align: left;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.login-page h2{
+  text-align: center;
 }
 .login-page input {
   font-family: "Roboto", sans-serif;

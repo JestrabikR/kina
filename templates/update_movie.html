@@ -11,12 +11,15 @@
             <h2 id="login_h2">Upravit Film</h2>
             <form action="/updatemovie/{{film['id_filmu']}}" class="login-form" method="POST">
                 <div class="form-group">
+                    <label>Název filmu</label>
                     <input type="text" placeholder="Název" name="movie_name" value="{{film['nazev']}}"/>
                 </div>
                 <div class="form-group">
+                    <label>Délka filmu</label>
                     <input type="number" placeholder="Délka" name="length" value="{{film['delka']}}"/>
                 </div>
                 <div class="form-group">
+                    <label>Typ filmu</label>
                     <p>
                         <SELECT name="type" class="form-select">
                         {% for type in types %}
@@ -27,6 +30,7 @@
                     <!--<input type="number" placeholder="Typ filmu" name="type"/>-->
                 </div>
                 <div class="form-group">
+                    <label>Žánr filmu</label>
                     <p>
                         <SELECT name="genre" class="form-select">
                         {% for genre in genres %}
