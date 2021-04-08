@@ -14,6 +14,8 @@ app.config['MYSQL_PASSWORD'] = db['mysql_password']
 app.config['MYSQL_DB'] = db['mysql_db']
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
+
+app.secret_key = "e7f0dec981313d3643b748acee5aa4f2"
 mysql = MySQL(app)
 
 @app.route('/')
@@ -125,6 +127,15 @@ def film():
 def herec():
    return render_template('herec.html')
 
+@app.route('/update/<str:table>', methods=["GET","POST"])
+def update():
+    if request.method == 'GET':
+         #load data from db insert into input
+         cur = mysql.connection.cursor()
+         cur.execute("SELECT * FROM table")
+         user = cur.fetchone()
+         return render_template('update.html')
+      else:
+
 if __name__ == "__main__":
-   app.secret_key = "e7f0dec981313d3643b748acee5aa4f2"
    app.run(debug=True, threaded=True)
