@@ -127,14 +127,14 @@ def film():
 def herec():
    return render_template('herec.html')
 
-@app.route('/update/<str:table>', methods=["GET","POST"])
-def update():
-   if request.method == 'GET':
-      #load data from db insert into input
-      cur = mysql.connection.cursor()
-      cur.execute("SELECT * FROM table")
-      user = cur.fetchone()
-      return render_template('update.html')
+# @app.route('/update/<str:table>', methods=["GET","POST"])
+# def update():
+#    if request.method == 'GET':
+#       #load data from db insert into input
+#       cur = mysql.connection.cursor()
+#       cur.execute("SELECT * FROM table")
+#       user = cur.fetchone()
+#       return render_template('update.html')
 
 
 if __name__ == "__main__":
