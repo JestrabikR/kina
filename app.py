@@ -14,6 +14,8 @@ app.config['MYSQL_PASSWORD'] = db['mysql_password']
 app.config['MYSQL_DB'] = db['mysql_db']
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
+
+app.secret_key = "e7f0dec981313d3643b748acee5aa4f2"
 mysql = MySQL(app)
 
 @app.route('/')
@@ -133,8 +135,8 @@ def update():
          cur.execute("SELECT * FROM table")
          user = cur.fetchone()
          return render_template('update.html')
-      else:
+   else:
+      pass
 
 if __name__ == "__main__":
-   app.secret_key = "e7f0dec981313d3643b748acee5aa4f2"
    app.run(debug=True, threaded=True)
