@@ -68,6 +68,7 @@ def logout():
 @app.route('/filmy')
 def filmy():
     cursor = mysql.connection.cursor()
+    #result = cursor.execute('SELECT filmy.id_filmu, filmy.nazev, filmy.delka FROM filmy INNER JOIN zanry_filmu ON filmy.id_zanru_filmu=zanry_filmu.id_zanru;')
     result = cursor.execute('SELECT * FROM filmy')
     if result > 0:
         filmDetails = cursor.fetchall()
@@ -81,13 +82,13 @@ def herci():
         actorDetails = cursor.fetchall()
         return render_template('herci.html', actorDetails=actorDetails)
 
-@app.route('/promitani')
-def promitani():
+@app.route('/saly')
+def saly():
    cursor = mysql.connection.cursor()
-   result = cursor.execute('SELECT * FROM promitani')
+   result = cursor.execute('SELECT * FROM saly')
    if result > 0:
-      promitaniDetails = cursor.fetchall()
-      return render_template('promitani.html', promitaniDetails=promitaniDetails)
+      salyDetails = cursor.fetchall()
+      return render_template('saly.html', salyDetails=salyDetails)
    return 
 
 @app.route('/addMovie', methods=["GET","POST"])
@@ -142,7 +143,7 @@ def updateMovie(id):
       cursor.execute('SELECT * FROM zanry_filmu')
       genres = cursor.fetchall()
 
-      return render_template('update.html',data=film, types=types, genres=genres)
+      return render_template('update_movie.html',data=film, types=types, genres=genres)
    else:
       movie_name = request.form['movie_name']
       length = request.form['length']
@@ -166,27 +167,19 @@ def updateHall(id):
    if request.method == 'GET':
       #load data from db insert into input
       cursor = mysql.connection.cursor()
-      cursor.execute("SELECT * FROM filmy WHERE id_filmu=%s",(id,))
-      film = cursor.fetchall()
+      cursor.execute("SELECT * FROM saly WHERE id_salu=%s",(id,))
+      sal = cursor.fetchall()
 
-      cursor = mysql.connection.cursor()
-      cursor.execute('SELECT * FROM typy_filmu')
-      types = cursor.fetchall()
-
-      cursor.execute('SELECT * FROM zanry_filmu')
-      genres = cursor.fetchall()
-
-      return render_template('update.html',data=film, types=types, genres=genres)
+      return render_template('update_hall.html',data=sal)
    else:
-      movie_name = request.form['movie_name']
-      length = request.form['length']
-      type = request.form['type']
-      genre = request.form['genre']
+      hall_number = request.form['hall_number']
+      projection_type = request.form['projection_type']
+      sound_type = request.form['sound_type']
 
       cur = mysql.connection.cursor()
-      cur.execute("UPDATE filmy SET nazev = %s, delka =%s, id_typu_filmu=%s, id_zanru_filmu=%s WHERE id_filmu=%s",(movie_name,length,type,genre,id))
+      cur.execute("UPDATE saly SET cislo_salu = %s, typ_promitani =%s, typ_ozvuceni=%s WHERE id_salu=%s",(hall_number,projection_type,sound_type,id))
       mysql.connection.commit()
-      return redirect(url_for("filmy"))
+      return redirect(url_for("saly"))
 
 if __name__ == "__main__":
    app.run(debug=True, threaded=True)

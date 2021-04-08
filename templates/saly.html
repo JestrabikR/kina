@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Filmy</title>
+{% endblock %}
+
+{% block body %}
+<div class="hall-page">
+<div class="parallax" style="background-image: url('../static/images/cinema-hall.jpg');">
+  <h1 id="main_h1" style="color: black; margin-top: 5rem;">Sály</h1>
+  </div>
+  <div class="container" id="main">
+
+    <table class="table">
+      <thead class="thead-dark">
+        <th scope="col">Číslo sálu</th>
+        <th scope="col">3D Promítání</th>
+        <th scope="col">Prostorový zvuk</th>
+        {% if session['name'] %}
+        <th></th>
+        {% endif %}
+      </thead>
+      <tbody>
+      {% for sal in salyDetails %}
+        <tr>
+            <td>{{sal['cislo_salu']}}</td>
+            {% if sal['typ_promitani'] == 1 %}
+            <td>Ano</td>
+            {% else %}
+            <td>Ne</td>
+            {% endif %}
+            {% if sal['typ_ozvuceni'] == 1 %}
+            <td>Ano</td>
+            {% else %}
+            <td>Ne</td>
+            {% endif %}
+            {% if session['name'] %}
+            <td><a class="custom-btn update-btn" href="/updatehall/{{sal['id_salu']}}">Upravit</a></td>
+            {% endif %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

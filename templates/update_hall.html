@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Upravit</title>
+{% endblock %}
+
+{% block body %}
+    {% for sal in data %}
+    <div class="container-login">
+        <div class="login-page">
+            <h2 id="login_h2">Upravit Sál</h2>
+            <form action="/updatehall/{{sal['id_salu']}}" class="login-form" method="POST">
+                <div class="form-group">
+                    <input type="text" placeholder="Název" name="hall_number" value="{{sal['cislo_salu']}}"/>
+                </div>
+                <!--Dodělat Select option ANO/NE-->
+                <div class="form-group">
+                    <input type="number" placeholder="Délka" name="projection_type" value="{{sal['typ_promitani']}}"/>
+                </div>
+                <div class="form-group">
+                    <input type="number" placeholder="Délka" name="sound_type" value="{{sal['typ_ozvuceni']}}"/>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Uložit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
