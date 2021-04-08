@@ -127,15 +127,66 @@ def film():
 def herec():
    return render_template('herec.html')
 
-# @app.route('/update/<str:table>', methods=["GET","POST"])
-# def update():
-#    if request.method == 'GET':
-#       #load data from db insert into input
-#       cur = mysql.connection.cursor()
-#       cur.execute("SELECT * FROM table")
-#       user = cur.fetchone()
-#       return render_template('update.html')
+@app.route('/updatemovie/<int:id>', methods=["GET","POST"])
+def updateMovie(id):
+   if request.method == 'GET':
+      #load data from db insert into input
+      cursor = mysql.connection.cursor()
+      cursor.execute("SELECT * FROM filmy WHERE id_filmu=%s",(id,))
+      film = cursor.fetchall()
 
+      cursor = mysql.connection.cursor()
+      cursor.execute('SELECT * FROM typy_filmu')
+      types = cursor.fetchall()
+
+      cursor.execute('SELECT * FROM zanry_filmu')
+      genres = cursor.fetchall()
+
+      return render_template('update.html',data=film, types=types, genres=genres)
+   else:
+      movie_name = request.form['movie_name']
+      length = request.form['length']
+      type = request.form['type']
+      genre = request.form['genre']
+
+      cur = mysql.connection.cursor()
+      cur.execute("UPDATE filmy SET nazev = %s, delka =%s, id_typu_filmu=%s, id_zanru_filmu=%s WHERE id_filmu=%s",(movie_name,length,type,genre,id))
+      mysql.connection.commit()
+      return redirect(url_for("filmy"))
+
+@app.route('/delete/<int:id>')
+def delete(id):
+   cursor = mysql.connection.cursor()
+   cursor.execute("DELETE FROM filmy WHERE id_filmu=%s",(id,))
+   mysql.connection.commit()
+   return redirect(url_for("filmy"))
+
+@app.route('/updatehall/<int:id>', methods=["GET","POST"])
+def updateHall(id):
+   if request.method == 'GET':
+      #load data from db insert into input
+      cursor = mysql.connection.cursor()
+      cursor.execute("SELECT * FROM filmy WHERE id_filmu=%s",(id,))
+      film = cursor.fetchall()
+
+      cursor = mysql.connection.cursor()
+      cursor.execute('SELECT * FROM typy_filmu')
+      types = cursor.fetchall()
+
+      cursor.execute('SELECT * FROM zanry_filmu')
+      genres = cursor.fetchall()
+
+      return render_template('update.html',data=film, types=types, genres=genres)
+   else:
+      movie_name = request.form['movie_name']
+      length = request.form['length']
+      type = request.form['type']
+      genre = request.form['genre']
+
+      cur = mysql.connection.cursor()
+      cur.execute("UPDATE filmy SET nazev = %s, delka =%s, id_typu_filmu=%s, id_zanru_filmu=%s WHERE id_filmu=%s",(movie_name,length,type,genre,id))
+      mysql.connection.commit()
+      return redirect(url_for("filmy"))
 
 if __name__ == "__main__":
    app.run(debug=True, threaded=True)

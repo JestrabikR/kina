@@ -16,6 +16,9 @@
     <th scope="col">Délka</th>
     <th scope="col">Typ Filmu</th>
     <th scope="col">Žánr Filmu</th>
+    {% if session['name'] %}
+    <th></th>
+    {% endif %}
   </thead>
   <tbody>
   {% for film in filmDetails %}
@@ -24,6 +27,9 @@
         <td>{{film['delka']}}</td>
         <td>{{film['id_typu_filmu']}}</td>
         <td>{{film['id_zanru_filmu']}}</td>
+        {% if session['name'] %}
+        <td><a class="custom-btn update-btn" href="/updatemovie/{{film['id_filmu']}}">Upravit</a>&nbsp;<a class="custom-btn delete-btn" href="/delete/{{film['id_filmu']}}">Smazat</a></td>
+        {% endif %}
     </tr>
   {% endfor %}
   </tbody>
