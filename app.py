@@ -18,6 +18,18 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 app.secret_key = "e7f0dec981313d3643b748acee5aa4f2"
 mysql = MySQL(app)
 
+#decorator for unauthorized access
+def authorize(func):
+   def wrapper(*args, **kwargs):
+      try:
+         session['name'] != None
+      except:
+         return render_template('unauthorized.html')
+      else:
+        return func(*args, **kwargs)
+   wrapper.__name__ = func.__name__
+   return wrapper
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -92,68 +104,63 @@ def saly():
    return 
 
 @app.route('/addMovie', methods=["GET","POST"])
+@authorize
 def addMovie():
-   try:
-      session['name'] != None
-   except:
-      return render_template('unauthorized.html')
+   if request.method == 'GET':
+      cursor = mysql.connection.cursor()
+      cursor.execute('SELECT * FROM typy_filmu')
+      types = cursor.fetchall()
+
+      cursor.execute('SELECT * FROM zanry_filmu')
+      genres = cursor.fetchall()
+
+      return render_template('add_movie.html', types=types, genres=genres)
    else:
-      if request.method == 'GET':
-         cursor = mysql.connection.cursor()
-         cursor.execute('SELECT * FROM typy_filmu')
-         types = cursor.fetchall()
+      movie_name = request.form['movie_name']
+      length = request.form['length']
+      type = request.form['type']
+      genre = request.form['genre']
 
-         cursor.execute('SELECT * FROM zanry_filmu')
-         genres = cursor.fetchall()
-
-         return render_template('add_movie.html', types=types, genres=genres)
-      else:
-         movie_name = request.form['movie_name']
-         length = request.form['length']
-         type = request.form['type']
-         genre = request.form['genre']
-
-         cur = mysql.connection.cursor()
-         cur.execute("INSERT INTO filmy (nazev, delka, id_typu_filmu, id_zanru_filmu) VALUES (%s, %s, %s, %s)",(movie_name,length,type,genre))
-         mysql.connection.commit()
-         return redirect(url_for("filmy"))
+      cur = mysql.connection.cursor()
+      cur.execute("INSERT INTO filmy (nazev, delka, id_typu_filmu, id_zanru_filmu) VALUES (%s, %s, %s, %s)",(movie_name,length,type,genre))
+      mysql.connection.commit()
+      return redirect(url_for("filmy"))
    
       
 @app.route('/addHall', methods=["GET","POST"])
+@authorize
 def addHall():
-   try:
-      session['name'] != None
-   except:
-      return render_template('unauthorized.html')
+   if request.method == 'GET':
+      return render_template('add_hall.html')
    else:
-      if request.method == 'GET':
-         cursor = mysql.connection.cursor()
-         cursor.execute('SELECT * FROM saly')
-         saly = cursor.fetchall()
+      hall_number = request.form['hall_number']
+      projection_type = request.form['projection_type']
+      sound_type = request.form['sound_type']
+      projection_id = request.form['projection_id']
 
-         return render_template('add_hall.html', saly=saly)
-      else:
-         hall_number = request.form['hall_number']
-         projection_type = request.form['projection_type']
-         sound_type = request.form['sound_type']
-         projection_id = request.form['projection_id']
+      cur = mysql.connection.cursor()
+      cur.execute("INSERT INTO saly (cislo_salu, typ_promitani, typ_ozvuceni, id_promitani) VALUES (%s, %s, %s, %s)",(hall_number,projection_type,sound_type,projection_id))
+      mysql.connection.commit()
+      return redirect(url_for("saly"))
 
-         cur = mysql.connection.cursor()
-         cur.execute("INSERT INTO saly (cislo_salu, typ_promitani, typ_ozvuceni, id_promitani) VALUES (%s, %s, %s, %s)",(hall_number,projection_type,sound_type,projection_id))
-         mysql.connection.commit()
-         return redirect(url_for("saly"))
-   
-      
+@app.route('/addActor', methods=["GET","POST"])
+@authorize
+def addActor():
+   if request.method == 'GET':
+      return render_template('add_actor.html')
+   else:
+      first_name = request.form['first_name']
+      last_name = request.form['last_name']
+      birth_date = request.form['birth_date']
+      character = request.form['character']
 
-@app.route('/film')
-def film():
-   return render_template('film.html')
-
-@app.route('/herec')
-def herec():
-   return render_template('herec.html')
+      cur = mysql.connection.cursor()
+      cur.execute("INSERT INTO herci (jmeno, prijmeni, datum_narozeni, jmeno_postavy) VALUES (%s, %s, %s, %s)",(first_name,last_name,birth_date,character))
+      mysql.connection.commit()
+      return redirect(url_for("herci"))
 
 @app.route('/updatemovie/<int:id>', methods=["GET","POST"])
+@authorize
 def updateMovie(id):
    if request.method == 'GET':
       #load data from db insert into input
@@ -181,13 +188,23 @@ def updateMovie(id):
       return redirect(url_for("filmy"))
 
 @app.route('/delete/<int:id>')
+@authorize
 def delete(id):
    cursor = mysql.connection.cursor()
    cursor.execute("DELETE FROM filmy WHERE id_filmu=%s",(id,))
    mysql.connection.commit()
    return redirect(url_for("filmy"))
 
+@app.route('/deleteActor/<int:id>')
+@authorize
+def deleteActor(id):
+   cursor = mysql.connection.cursor()
+   cursor.execute("DELETE FROM herci WHERE id_herce=%s",(id,))
+   mysql.connection.commit()
+   return redirect(url_for("herci"))
+
 @app.route('/updatehall/<int:id>', methods=["GET","POST"])
+@authorize
 def updateHall(id):
    if request.method == 'GET':
       #load data from db insert into input

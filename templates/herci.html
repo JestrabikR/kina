@@ -7,12 +7,19 @@
 {% block body %}
 <h1>Herci</h1>
 
+{% if session['name'] %}
+<a href="{{url_for('addActor')}}"class="btn btn-success"><span id="plus">+</span> Přidat herce</a>
+{% endif %}
+
 <table class="table">
   <thead class="thead-dark">
     <th scope="col">Jméno</th>
     <th scope="col">Příjmení</th>
     <th scope="col">Narození</th>
     <th scope="col">Postava</th>
+    {% if session['name'] %}
+    <th></th>
+    {% endif %}
   </thead>
   <tbody>
   {% for actor in actorDetails %}
@@ -21,41 +28,11 @@
         <td>{{actor['prijmeni']}}</td>
         <td>{{actor['datum_narozeni']}}</td>
         <td>{{actor['jmeno_postavy']}}</td>
+        {% if session['name'] %}
+        <td><a class="custom-btn delete-btn" href="/deleteActor/{{actor['id_herce']}}">Smazat</a></td>
+        {% endif %}
     </tr>
   {% endfor %}
   </tbody>
 </table>
-
-<!--
-<table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">Jméno</th>
-        <th scope="col">Příjmení</th>
-        <th scope="col">Datum Narození</th>
-        <th scope="col">Jméno postavy</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a href="{{url_for('herec')}}">Clancy</a></td>
-        <td>Brown</td>
-        <td>01-25-1973</td>
-        <td>Spongebob</td>
-      </tr>
-      <tr>
-        <td><a href="{{url_for('herec')}}">Tom</a></td>
-        <td>Kenny</td>
-        <td>05-04-1969</td>
-        <td>Sépiják</td>
-      </tr>
-      <tr>
-        <td><a href="{{url_for('herec')}}">Marlon</a></td>
-        <td>Brando</td>
-        <td>10-16-1959</td>
-        <td>Vito Corleone</td>
-      </tr>
-    </tbody>
-</table>
--->
 {% endblock %}

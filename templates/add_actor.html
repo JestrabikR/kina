@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Přidat herce</title>
+{% endblock %}
+
+{% block body %}
+<div class="container-login">
+    <div class="login-page">
+        <h2 id="login_h2">Přidat herce</h2>
+        <form action="/addActor" class="login-form" method="POST">
+            <div class="form-group">
+                <input type="text" placeholder="Jméno" name="first_name"/>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Příjmení" name="last_name"/>
+            </div>
+            <div class="form-group">
+                <input type="date" placeholder="Datum narození" name="birth_date"/>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Jméno postavy" name="character"/>
+            </div>
+            <div class="form-group">
+                <button type="submit">Uložit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
