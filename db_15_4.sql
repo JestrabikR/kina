@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.7.1
 -- https://www.phpmyadmin.net/
 --
--- Počítač: 127.0.0.1
--- Vytvořeno: Čtv 15. dub 2021, 19:42
--- Verze serveru: 10.4.14-MariaDB
--- Verze PHP: 7.4.10
+-- Počítač: sql11.freemysqlhosting.net
+-- Vytvořeno: Čtv 15. dub 2021, 18:27
+-- Verze serveru: 5.5.62-0ubuntu0.14.04.1
+-- Verze PHP: 7.0.33-0ubuntu0.16.04.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Databáze: `kina`
+-- Databáze: `sql11405906`
 --
 
 -- --------------------------------------------------------
@@ -52,8 +53,6 @@ INSERT INTO `filmy` (`id_filmu`, `nazev`, `delka`, `id_typu_filmu`, `id_zanru_fi
 (10, 'Simpsonovi ve filmu', 83, 2, 1),
 (11, 'SpongeBob ve filmu: Houba na suchu', 92, 2, 1),
 (12, 'Gran Torino', 116, 1, 3),
-(13, 'Star Wars: Epizoda VI - Návrat Jediho', 131, 0, 0),
-(14, 'Černý jestřáb sestřelen', 141, 0, 0),
 (15, '12 Opic', 124, 1, 4);
 
 -- --------------------------------------------------------
@@ -86,12 +85,12 @@ CREATE TABLE `herci` (
 --
 
 INSERT INTO `herci` (`id_herce`, `jmeno`, `prijmeni`, `datum_narozeni`, `jmeno_postavy`) VALUES
-(1, 'Clancy', 'Brown', '0000-00-00', 'Spongebob'),
-(2, 'Tom', 'Kenny', '0000-00-00', 'Sépiják'),
-(3, 'Tom', 'Hanks', '0000-00-00', 'Forrest Gump'),
-(4, 'Robin', 'Wrighht', '0000-00-00', 'Jenny'),
-(5, 'Marlon', 'Brando', '0000-00-00', 'Vito Corleone'),
-(6, 'Alfredo', 'Pacino', '0000-00-00', 'Michael Corleone');
+(7, 'Marlon', 'Brando', '1955-09-03', 'Vito Corleone'),
+(8, 'Clancy', 'Brown', '1966-06-15', 'Spongebob'),
+(9, 'Tom', 'Kenny', '1963-11-05', 'Sépiják'),
+(10, 'Robin', 'Wright', '1966-01-23', 'Jenny'),
+(11, 'Alfredo', 'Pacino', '1940-04-25', 'Michael Corleone'),
+(12, 'Tom', 'Hanks', '1955-05-31', 'Forrest Gump');
 
 -- --------------------------------------------------------
 
@@ -392,61 +391,51 @@ ALTER TABLE `zeme`
 --
 ALTER TABLE `filmy`
   MODIFY `id_filmu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
 --
 -- AUTO_INCREMENT pro tabulku `herci`
 --
 ALTER TABLE `herci`
-  MODIFY `id_herce` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
+  MODIFY `id_herce` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT pro tabulku `jazyky`
 --
 ALTER TABLE `jazyky`
   MODIFY `id_jazyku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT pro tabulku `prodeje`
 --
 ALTER TABLE `prodeje`
   MODIFY `id_prodeje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
-
 --
 -- AUTO_INCREMENT pro tabulku `promitani`
 --
 ALTER TABLE `promitani`
   MODIFY `id_promitani` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT pro tabulku `saly`
 --
 ALTER TABLE `saly`
   MODIFY `id_salu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT pro tabulku `typy_filmu`
 --
 ALTER TABLE `typy_filmu`
   MODIFY `id_typu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT pro tabulku `uzivatele`
 --
 ALTER TABLE `uzivatele`
   MODIFY `id_uzivatele` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT pro tabulku `zanry_filmu`
 --
 ALTER TABLE `zanry_filmu`
   MODIFY `id_zanru` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT pro tabulku `zeme`
 --
 ALTER TABLE `zeme`
-  MODIFY `id_zeme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-COMMIT;
+  MODIFY `id_zeme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

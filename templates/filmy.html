@@ -25,8 +25,8 @@
     <tr>
         <td>{{film['nazev']}}</td>
         <td>{{film['delka']}}</td>
-        <td>{{film['id_typu_filmu']}}</td>
-        <td>{{film['id_zanru_filmu']}}</td>
+        <td>{{film['typ_filmu']}}</td>
+        <td>{{film['nazev_zanru']}}</td>
         {% if session['name'] %}
         <td><a class="custom-btn update-btn" href="/updatemovie/{{film['id_filmu']}}">Upravit</a>&nbsp;<a class="custom-btn delete-btn" href="/delete/{{film['id_filmu']}}">Smazat</a></td>
         {% endif %}

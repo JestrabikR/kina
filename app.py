@@ -32,7 +32,7 @@ def authorize(func):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+   return render_template('index.html')
 
 @app.route('/register', methods=["GET","POST"])
 def register():
@@ -79,20 +79,19 @@ def logout():
 
 @app.route('/filmy')
 def filmy():
-    cursor = mysql.connection.cursor()
-    #result = cursor.execute('SELECT filmy.id_filmu, filmy.nazev, filmy.delka FROM filmy INNER JOIN zanry_filmu ON filmy.id_zanru_filmu=zanry_filmu.id_zanru;')
-    result = cursor.execute('SELECT * FROM filmy')
-    if result > 0:
-        filmDetails = cursor.fetchall()
-        return render_template('filmy.html', filmDetails=filmDetails)
+   cursor = mysql.connection.cursor()
+   result = cursor.execute('SELECT zanry_filmu.nazev_zanru, filmy.nazev, filmy.delka, filmy.id_typu_filmu, typy_filmu.typ_filmu FROM filmy JOIN zanry_filmu ON filmy.id_zanru_filmu = zanry_filmu.id_zanru JOIN typy_filmu ON filmy.id_typu_filmu = typy_filmu.id_typu')
+   if result > 0:
+      filmDetails = cursor.fetchall()
+      return render_template('filmy.html', filmDetails=filmDetails)
 
 @app.route('/herci')
 def herci():
-    cursor = mysql.connection.cursor()
-    result = cursor.execute('SELECT * FROM herci')
-    if result > 0:
-        actorDetails = cursor.fetchall()
-        return render_template('herci.html', actorDetails=actorDetails)
+   cursor = mysql.connection.cursor()
+   result = cursor.execute('SELECT * FROM herci')
+   if result > 0:
+      actorDetails = cursor.fetchall()
+      return render_template('herci.html', actorDetails=actorDetails)
 
 @app.route('/saly')
 def saly():
