@@ -12,12 +12,19 @@
             <div class="form-group">
                 <input type="number" placeholder="Číslo sálu" name="hall_number"/>
             </div>
-            <!--Dodělat select option ANO/NE-->
             <div class="form-group">
-                <input type="number" placeholder="Typ promítání" name="projection_type"/>
+                <select name="projection_type" class="custom-select">
+                    <label>Typ promítání</label>
+                    <option value="1">3D</option>
+                    <option value="0">2D</option>
+                </select>
             </div>
             <div class="form-group">
-                <input type="number" placeholder="Typ Ozvučení" name="sound_type"/>
+                <select name="sound_type" class="custom-select">
+                    <label>Typ promítání</label>
+                    <option value="1">Prostorový zvuk</option>
+                    <option value="0">Klasický zvuk</option>
+                </select>
             </div>
             <div class="form-group">
                 <input type="number" placeholder="Číslo promítání" name="projection_id"/>

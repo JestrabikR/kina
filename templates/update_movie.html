@@ -20,24 +20,20 @@
                 </div>
                 <div class="form-group">
                     <label>Typ filmu</label>
-                    <p>
-                        <SELECT name="type" class="form-select">
+                        <SELECT name="type" class="custom-select">
                         {% for type in types %}
                           <OPTION value={{type['id_typu']}}>{{type['typ_filmu']}}</OPTION>
                         {% endfor %}
                         </SELECT>
-                    </p>
                     <!--<input type="number" placeholder="Typ filmu" name="type"/>-->
                 </div>
                 <div class="form-group">
                     <label>Žánr filmu</label>
-                    <p>
-                        <SELECT name="genre" class="form-select">
+                        <SELECT name="genre" class="custom-select">
                         {% for genre in genres %}
                           <OPTION value={{genre['id_zanru']}}>{{genre['nazev_zanru']}}</OPTION>
                         {% endfor %}
                         </SELECT>
-                    </p>
                 </div>
                 <div class="form-group">
                     <button type="submit">Uložit</button>

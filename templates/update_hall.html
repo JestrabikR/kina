@@ -12,17 +12,23 @@
             <form action="/updatehall/{{sal['id_salu']}}" class="login-form" method="POST">
                 <div class="form-group">
                     <label>Číslo sálu</label>
-                    <input type="text" placeholder="Číslo Sálu" name="hall_number" value="{{sal['cislo_salu']}}"/>
-                </div>
-                <!--Dodělat Select option ANO/NE-->
-                <div class="form-group">
-                    <label>Typ promítání</label>
-                    <input type="number" placeholder="Typ promítání" name="projection_type" value="{{sal['typ_promitani']}}"/>
+                    <input type="number" placeholder="Číslo Sálu" name="hall_number" value="{{sal['cislo_salu']}}"/>
                 </div>
                 <div class="form-group">
-                    <label>Typ ozvučení</label>
-                    <input type="number" placeholder="Typ ozvučení" name="sound_type" value="{{sal['typ_ozvuceni']}}"/>
+                    <select name="projection_type" class="custom-select">
+                        <label>Typ promítání</label>
+                        <option value="1" {{ 'selected' if sal['typ_promitani'] == 1 else '' }}>3D</option>
+                        <option value="0" {{ 'selected' if sal['typ_promitani'] == 0 else '' }}>2D</option>
+                    </select>
                 </div>
+                <div class="form-group">
+                    <select name="sound_type" class="custom-select">
+                        <label>Typ promítání</label>
+                        <option value="1" {{ 'selected' if sal['typ_ozvuceni'] == 1 else '' }}>Prostorový zvuk</option>
+                        <option value="0" {{ 'selected' if sal['typ_ozvuceni'] == 0 else '' }}>Klasický zvuk</option>
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <button type="submit">Uložit</button>
                 </div>

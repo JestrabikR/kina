@@ -80,7 +80,7 @@ def logout():
 @app.route('/filmy')
 def filmy():
    cursor = mysql.connection.cursor()
-   result = cursor.execute('SELECT zanry_filmu.nazev_zanru, filmy.nazev, filmy.delka, filmy.id_typu_filmu, typy_filmu.typ_filmu FROM filmy JOIN zanry_filmu ON filmy.id_zanru_filmu = zanry_filmu.id_zanru JOIN typy_filmu ON filmy.id_typu_filmu = typy_filmu.id_typu')
+   result = cursor.execute('SELECT id_filmu, zanry_filmu.nazev_zanru, filmy.nazev, filmy.delka, filmy.id_typu_filmu, typy_filmu.typ_filmu FROM filmy JOIN zanry_filmu ON filmy.id_zanru_filmu = zanry_filmu.id_zanru JOIN typy_filmu ON filmy.id_typu_filmu = typy_filmu.id_typu')
    if result > 0:
       filmDetails = cursor.fetchall()
       return render_template('filmy.html', filmDetails=filmDetails)
@@ -100,7 +100,7 @@ def saly():
    if result > 0:
       salyDetails = cursor.fetchall()
       return render_template('saly.html', salyDetails=salyDetails)
-   return 
+   return
 
 @app.route('/addMovie', methods=["GET","POST"])
 @authorize
@@ -160,14 +160,13 @@ def addActor():
 
 @app.route('/updatemovie/<int:id>', methods=["GET","POST"])
 @authorize
-def updateMovie(id):
+def updatemovie(id):
    if request.method == 'GET':
       #load data from db insert into input
       cursor = mysql.connection.cursor()
       cursor.execute("SELECT * FROM filmy WHERE id_filmu=%s",(id,))
       film = cursor.fetchall()
 
-      cursor = mysql.connection.cursor()
       cursor.execute('SELECT * FROM typy_filmu')
       types = cursor.fetchall()
 

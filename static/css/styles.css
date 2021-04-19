@@ -166,6 +166,15 @@ body {
   -moz-osx-font-smoothing: grayscale;      
 }
 
+.custom-select{
+  width: 100%;
+  padding: 15px 10px 15px 10px;
+  margin-bottom: 1rem;
+  background-color: #f2f2f2;
+  border: none;
+  font-size: 15px;
+}
+
 .btn-success {
   
   font-family: Verdana, Geneva, Tahoma, sans-serif;
